@@ -1,11 +1,11 @@
-import React from "react";
-import styles from "./App.module.scss";
-import cx from "classnames";
+import React from 'react';
+import styles from './App.module.scss';
+import ItemList from './components/ItemsList/ItemsList';
 
 function App() {
   return (
     <div className={styles.app}>
-      <h1>Hello</h1>
+      <ItemList />
     </div>
   );
 }
