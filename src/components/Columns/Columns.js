@@ -1,16 +1,17 @@
 import React from 'react';
 import cx from 'classnames';
 import styles from './Columns.module.scss';
+import withCollapse from '../../hocs/withCollapse';
 
-const Columns = () => {
+const Columns = ({ isCollapsed, toggle }) => {
   const rowClass = cx('columns', {
-    [styles.isCollapsed]: false,
+    [styles.isCollapsed]: isCollapsed,
   });
 
   return (
     <div className="columns">
       <div className="column">
-        <button type="button" className="button is-dark is-large">
+        <button type="button" className="button is-dark is-large" onClick={toggle}>
           Collapse
         </button>
         <div className={rowClass}>
@@ -32,4 +33,4 @@ const Columns = () => {
   );
 };
 
-export default Columns;
+export default withCollapse(Columns);

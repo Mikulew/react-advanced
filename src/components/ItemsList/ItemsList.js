@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import cx from 'classnames';
 import styles from './ItemsList.module.scss';
+import withCollapse from '../../hocs/withCollapse';
 
 const items = [
   `Lorem ipsum dolor sit, amet consectetur adipisicing elit1.`,
@@ -10,31 +11,16 @@ const items = [
   `Lorem ipsum dolor sit, amet consectetur adipisicing elit5.`,
 ];
 
-function ItemsList() {
-  const [toggleState, setToggleState] = useState(false);
+function ItemsList({ isCollapsed, toggle }) {
   const listClass = cx(styles.list, {
-    [styles.isCollapsed]: toggleState,
+    [styles.isCollapsed]: isCollapsed,
   });
 
   return (
     <div>
-      {toggleState ? (
-        <button
-          type="button"
-          className="button is-dark is-large"
-          onClick={() => setToggleState(false)}
-        >
-          Hide
-        </button>
-      ) : (
-        <button
-          type="button"
-          className="button is-dark is-large"
-          onClick={() => setToggleState(true)}
-        >
-          Show
-        </button>
-      )}
+      <button type="button" className="button is-dark is-large" onClick={toggle}>
+        Collapse
+      </button>
       <ul className={listClass}>
         {items.map(item => (
           <li key={item} className="notification is-primary">
@@ -46,4 +32,4 @@ function ItemsList() {
   );
 }
 
-export default ItemsList;
+export default withCollapse(ItemsList);
