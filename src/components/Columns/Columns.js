@@ -1,5 +1,6 @@
 import React from 'react';
 import cx from 'classnames';
+import { compose } from 'recompose';
 import styles from './Columns.module.scss';
 import withCollapse from '../../hocs/withCollapse';
 import withAuth from '../../hocs/withAuth';
@@ -42,4 +43,4 @@ const Columns = ({ isCollapsed, toggle, isAuthorised, toggleAuth }) => {
   );
 };
 
-export default withAuth(withCollapse(Columns));
+export default compose(withCollapse, withAuth)(Columns);
