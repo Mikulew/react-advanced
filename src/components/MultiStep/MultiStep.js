@@ -1,21 +1,40 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 
-export const Page = ({ children }) => (<div>{children}</div>);
+const WizardContext = React.createContext({
+  currentPage: 1,
+  changePage: () => {},
+});
 
-export const Controls = () => (
-  <div>
-    <button type="button">Previous</button>
-    <button type="button">Next</button>
-    {/* <button>Submit</button> */}
-  </div>
-);
+const Page = ({ children, pageIndex }) => {
+  const { currentPage } = useContext(WizardContext);
+  return currentPage === pageIndex ? children : null;
+};
 
-const MultiStep = ({ children }) => {
+const Controls = () => {
+  const { currentPage, changePage } = useContext(WizardContext);
+
   return (
     <div>
-      {children}
+      <button className="button is-small" type="button" onClick={() => changePage(currentPage - 1)}>
+        Previous
+      </button>
+      <button className="button is-small" type="button" onClick={() => changePage(currentPage + 1)}>
+        Next
+      </button>
+      {/* <button>Submit</button> */}
     </div>
   );
-}
+};
 
-export default MultiStep;
+const Wizard = ({ children }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const changePage = newPageIndex => {
+    setCurrentPage(newPageIndex);
+  };
+
+  return (
+    <WizardContext.Provider value={{ currentPage, changePage }}>{children}</WizardContext.Provider>
+  );
+};
+
+export { Page, Controls, Wizard };
